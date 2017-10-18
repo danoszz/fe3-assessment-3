@@ -1,8 +1,8 @@
 # Street lights in D3.js and webVR 💡
 
-This packed bubble chart is constructed from a [dataset][overheid-data] storing the location of public lighting like street laterns in the area of Bloemendaal, the Netherlands. It is based on this [awesome experiment][example-repo] by [**@almossawi**][example-repo_author] (No license included) for the course [FE3](fe3).
+This 3D scatterplot is constructed from a [dataset][overheid-data] storing the location of public lighting like street laterns in the area of Bloemendaal, the Netherlands. It is based on this [awesome experiment][example-repo] by [**@almossawi**][example-repo_author] (No license included) for the course [FE3](fe3).
 
-**_Patriotic warning_** The [demo](https://danoszz.github.io/fe3-assessment-2/) visualization is in Dutch 🇳🇱
+**_Patriotic warning_** The [demo](https://danoszz.github.io/fe3-assessment-3/) visualization is in Dutch 🇳🇱
 
 ## TL;DR
 
@@ -13,18 +13,12 @@ Since time is precious and endless stories can be forgotten: I'll sum up the pro
 * Main inspiration was [this][example-repo] awesome interactive creation.
 * The code is customized for this dataset. Styling as well.
 * Updating D3 V3 and A-Frame 0.2.0 to the newest version was a pain in the ass.
-	* Only D3 is updated, A-Frame isn't.
+	* Only D3 is updated, A-Frame isn't yet.
 * Multiple D3 visualization: the map and point graph (street laterns)
 
-> Fun fact: during the last 32 hours the Internet company decided to kill our internet and let me work from a iPhone hotspot. Including some nice Atom updates, dataset downloads.
+> Fun fact: during the last 32 hours the Internet company decided to kill our internet and let me work from an iPhone hotspot. Thanks Ziggo.
 
 ![][cover]
-
-
-
-
-GOODMORNING LAURENS!!! I FELL ASLEEP AROUND 4, LAST PUSH TO README HAS TO BE DONE IN THE MORNING BEFORE THE APPOINTMENT. DON'T WORRY ILL BE THERE!
-
 
 
 ## Workflow
@@ -33,8 +27,8 @@ First I will give a quick illustration of my workflow throughout the process of 
 
 > The in depth [storytelling](https://github.com/danoszz/fe3-assessment-2/blob/master/readme.md) is not always the case in this documentation. And saves both me and the reader some time
 
-1. Find [Dataset](https://data.overheid.nl/data/dataset/ovl-bloemendaal)
-2. Refind Dataset
+1. Find interesting [Dataset](https://data.overheid.nl/data/dataset/ovl-bloemendaal)
+2. Sketch ideas on plain ol' paper
 3. Research VR + D3.js
 4. Convert CSV to JSON
 5. Load data in to [example](https://github.com/almossawi/aframe-d3-visualization)
@@ -43,47 +37,54 @@ First I will give a quick illustration of my workflow throughout the process of 
 7. Convert D3 V3 to V4
 8. Update Aframe 0.4 to latest release and bug testing
    * Find out whole thing breaks, need to debug
-9. Apply styling
+9. Apply styling an UI changes
 
+### Interesting code stuff
 
-Cost me 4 hours to update Aframe 0.2.0 to 0.7.0. Needed to do it because of the FPS upgrade. This https://github.com/aframevr/aframe/pull/1323 costed me 4 hours, strings are not allowed anymore
-## Index
+The [example][example-repo] had all it's code in D3 V3 and A-Frame 0.2.0, so it needed a update. From D3 V3 -> V4 was easily done, but updating A-Frame was more time consuming. It needed to be done because the size of the dataset in combination with the FPS. At the end this [pull request](https://github.com/aframevr/aframe/pull/1323) in the A-Frame library and the following code bit caused the bugs. Still don't know how to fix it.
 
-1. TL;DR
-2. Dataset
-3. Concept
-4. Visualization
-	1. Concept
-	2. Resources
-	3. Own code
-5. Reflection
-	1. Todo
-6. Cookie
+```
+	.attr("position", (d, i) => {
+		const x = x_scale(d.longitude);
+		const z = z_scale(d.latitude);
+		const y = y_scale(d.Hoogte) / 2;
+		return `${x} ${y} ${z}`;
+	})
 
-## 1. TL;DR
+// resulted in NaN for position attribute in de debugger in >0.2.0
+```
 
-## 2. Dataset
+Since it takes a while for the whole scene to render I decided to put a loading screen before the user can interact with the visualization. The loading screen is called back when the data is loaded completely
 
-## 3. Visualization
+```
+d3.select(".loading").classed("hide", false); // Set 'fake' loading screen for
 
-### Concept
+// data loading on each object
+
+.call(function(d){
+	d3.select(".loading").classed("hide", true); // remove loading screen when data is loaded
+});
+
+```
+
 ### Resources
 
-* [D3.js](#)
-* [Aframe](#)
+* [D3.js][rs_d3] - D3.js is a JavaScript library for manipulating documents based on data.
+
+* [A-frame][rs_aframe] - A web framework for building virtual reality experiences
+
 * [Textures.js](http://riccardoscalco.github.io/textures/) - Textures.js is a Javascript library for creating SVG patterns. Made on top of d3.js, it is designed for data visualization.
-* [Concrec.js](https://github.com/jasondavies/conrec.js) - JavaScript implementation of the CONREC contouring algorithm, which operates on a grid of z-values.
-
-
-### Own code
-
-## 5. Reflection
 
 ### Todo
 
+* [ ] Add reflection and more in depth documentation in readme
+* [ ] Add used D3 & A-frame features
+* [ ] Make a workable mobile and VR set UI
 * [ ] Create an environment including Gulp
 * [ ] Update Aframe to V0.7.0 without any [bugs](https://github.com/aframevr/aframe/pull/1323).
 * [ ] Change direction of first view: south -> north.
+* [ ] Add preview gif instead of static picture
+* [ ] Make assets local instead of from CDN
 
 [overheid-data]: https://data.overheid.nl/data/dataset/ovl-bloemendaal
 
@@ -93,9 +94,6 @@ Cost me 4 hours to update Aframe 0.2.0 to 0.7.0. Needed to do it because of the 
 [cover]: assets/images/preview.png
 [rs_aframe]: https://aframe.io/
 [rs_d3]: https://d3js.org/
-
-
-
 
 
 [banner]: https://cdn.rawgit.com/cmda-fe3/logo/a4b0614/banner-assessment-3.svg
