@@ -167,11 +167,10 @@ a-scene:active {
 	width: 100%;
 	display: flex;
 	flex-direction: row;
-	margin-bottom: calc(0.5em + 1ex);
 }
 
 .col {
-	width: 50%;
+	width: 75%;
 	display: flex;
 }
 .col-large {
@@ -193,7 +192,9 @@ a-scene:active {
   .hide-on-mobile {
     display: none;
   }
-
+	h1, .loading-col p {
+		margin-left: 5%;
+	}
   h1 {
     font-size: 1.8rem;
   }
@@ -201,5 +202,6 @@ a-scene:active {
   .card {
     margin: 1rem;
   }
+
 
 }
