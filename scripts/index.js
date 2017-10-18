@@ -9,7 +9,7 @@
   d3.select(".loading").classed("hide", false); // Set 'fake' loading screen for
 
   // Load dataset for VR
-  d3.json("/assets/data/aframe-data-bloemendaal_small.json", (error, data) => {
+  d3.json("assets/data/aframe-data-bloemendaal_small.json", (error, data) => {
       global.data = data;
       global.number_of_lampposts = data.length;
 
