@@ -20,6 +20,13 @@ Since time is precious and endless stories can be forgotten: I'll sum up the pro
 
 ![][cover]
 
+
+
+
+GOODMORNING LAURENS!!! I FELL ASLEEP AROUND 4, LAST PUSH TO README HAS TO BE DONE IN THE MORNING BEFORE THE APPOINTMENT. DON'T WORRY ILL BE THERE!
+
+
+
 ## Workflow
 
 First I will give a quick illustration of my workflow throughout the process of coding this assignment. Afterwards I will go in depth on the points where I feel is needed.
