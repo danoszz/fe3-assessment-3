@@ -78,12 +78,9 @@
           .classed("mound", true)
           .attr("visible", "false")
           .attr("position", (d, i) => {
-            //  d.Hoogte = +d.Hoogte.replace(/,/g, '.');
-
             const x = x_scale(d.longitude);
             const z = z_scale(d.latitude);
             const y = y_scale(d.Hoogte) / 2;
-
             return `${x} ${y} ${z}`;
           })
           .attr("height", (d, i) => y_scale(d.Hoogte))
@@ -92,7 +89,11 @@
           .append("a-animation")
           .attr("attribute", "visible")
           .attr("begin", "1000")
-          .attr("to", "true");
+          .attr("to", "true")
+					.call(function(d){
+						d3.select(".loading").classed("hide", true); // remove loading screen when data is loaded
+					});
+
       });
 
       d3.selectAll(".mound").on("click", (d, i) => {
@@ -101,10 +102,6 @@
       });
     }
   );
-  // Remove fake loading
-  setTimeout(() => {
-    d3.select(".loading").classed("hide", true);
-  }, 4000);
 
   function updateCardText(d, i) {
     const suffix = "th";
