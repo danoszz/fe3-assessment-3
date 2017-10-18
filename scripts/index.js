@@ -84,7 +84,7 @@
             return `${x} ${y} ${z}`;
           })
           .attr("height", (d, i) => y_scale(d.Hoogte))
-          .attr("radius", (d, i) => d.Aanlegjaar / 10000)
+          .attr("radius", (d, i) => d.Aanlegjaar / 5000)
           .attr("material", d => "color: #813BF6; roughness: 1; metalness: 0")
           .append("a-animation")
           .attr("attribute", "visible")
